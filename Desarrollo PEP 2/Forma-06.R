@@ -1,5 +1,5 @@
 # PEP 2 IME
-# EstefanÃ­a Alvarez (20.371.287-1)
+# Estefanía Alvarez (20.371.287-1)
 # Stephan Silva (20.298.778-8)
 
 
@@ -62,6 +62,11 @@ instructor <- datosFlame %>% select(eval_instructor)
 capitan <- datosFlame %>% select(eval_capitan)
 comandante <- datosFlame %>% select(eval_comandante)
 general <- datosFlame %>% select(eval_general)
+
+#instructor <- as.integer(instructor$eval_instructor)
+#capitan <- as.integer(capitan$eval_capitan)
+#comandante <- as.integer(comandante$eval_comandante)
+#general <- as.integer(general$eval_general)
 
 datos2 <- data.frame(instructor, capitan, comandante, general)
 
