@@ -2,6 +2,8 @@
 # Estefanía Alvarez (20.371.287-1)
 # Stephan Silva (20.298.778-8)
 
+
+
 # Pregunta 1
 
 # (23 puntos) Lord Vader desea saber si los niveles de exigencia con que los
@@ -12,6 +14,87 @@
 # claro al solicitar un reporte de aquellos oficiales cuyas evaluaciones
 # presenten diferencias.
 
+# Desarrollo:
+
+
+# Paquetes a utilizar:
+
+if (!require(ggplot2)){
+  install.packages("ggplot2", dependencies = TRUE )
+  require (ggplot2)
+}
+if (!require(ez)){
+  install.packages("ez", dependencies = TRUE )
+  require (ez)
+}
+
+if (!require(ggpubr)){
+  install.packages("ggpubr", dependencies = TRUE )
+  require (ggpubr)
+}
+
+library(tidyr)
+library(dplyr)
+
+
+# Realizando llamado al archivo.csv
+datos <- read.csv(file.choose(), encoding = "UTF-8", sep = ";")
+
+# Nivel de significación:
+
+alpha <- 0.01
+
+# Hipótesis a contrastar:
+
+# H0: Las evaluaciones promedio de los flametrooper es igual para uno de los 
+# oficiales evaluadores.
+
+# HA: Existe al menos una evaluación diferente que presenta diferencia frente 
+# a las demás.
+
+# Se comienza por definir un nuevo data.frame con los datos acomodados 
+
+datosFlame <- datos %>% filter(datos[["division"]] == "Flametrooper")
+
+# names(datosFlame)<- c("division", "eval_instructor", "eval_capitan", "eval_comandante", "eval_general")
+
+instructor <- datosFlame %>% select(eval_instructor)
+capitan <- datosFlame %>% select(eval_capitan)
+comandante <- datosFlame %>% select(eval_comandante)
+general <- datosFlame %>% select(eval_general)
+
+datos2 <- data.frame(instructor, capitan, comandante, general)
+
+# DATOS EN FORMATO LARGO
+dl <- gather(
+  data = datos2,
+  key = "Evaluador",
+  value = "Resultado",
+)
+
+dl[["Evaluador"]] <- factor(dl[["Evaluador"]])
+dl[["Resultado"]] <- factor(as.numeric(dl[["Resultado"]]))
+
+# Comprobación de normalidad a través de un gráfico QQ
+# Por alguna razón desconocida, el gráfico sale de una forma no adecuada :(
+g1 <- ggqqplot(dl,
+               x = "Resultado",
+               y = "Evaluador",
+               color = "Evaluador")
+
+g1 <- g1 + facet_wrap(~Evaluador)
+g1 <- g1 + rremove("x.ticks") + rremove("x.text")
+g1 <- g1 + rremove("y.ticks") + rremove("y.text")
+g1 <- g1 + rremove("axis.title")
+print(g1)
+
+# Es por esto que decidimos utilizar la prueba de 
+
+class(dl$Resultado)
+
+x.test <- shapiro.test(as.numeric(dl$Resultado))
+
+# 
 
 # Pregunta 2
 
