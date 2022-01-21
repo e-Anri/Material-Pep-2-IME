@@ -38,7 +38,7 @@ library(dplyr)
 
 
 # Realizando llamado al archivo.csv
-datos <- read.csv(file.choose(), encoding = "UTF-8", sep = ";")
+datos <- read.csv(file.choose(), encoding = "UTF-8", sep = ";", stringsAsFactors = FALSE)
 
 # Nivel de significación:
 
@@ -65,15 +65,21 @@ general <- datosFlame %>% select(eval_general)
 
 datos2 <- data.frame(instructor, capitan, comandante, general)
 
+class(datos2$eval_instructor)
+
 # DATOS EN FORMATO LARGO
 dl <- gather(
   data = datos2,
   key = "Evaluador",
   value = "Resultado",
 )
+strtoi(dl$Resultado)
 
-dl[["Evaluador"]] <- factor(dl[["Evaluador"]])
-dl[["Resultado"]] <- factor(as.numeric(dl[["Resultado"]]))
+dl[["Resultado"]] <- factor(dl[["Resultado"]])
+
+dl$instancia <- factor(1:nrow(dl))
+
+
 
 # Comprobación de normalidad a través de un gráfico QQ
 # Por alguna razón desconocida, el gráfico sale de una forma no adecuada :(
