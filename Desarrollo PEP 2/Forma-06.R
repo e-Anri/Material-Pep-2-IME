@@ -125,7 +125,9 @@ x.test <- shapiro.test(as.numeric(dl$Resultado))
 # cuales serán empleados para ajustar el modelo y el 20% restante, para 
 # evaluarlo.
 
+# Considerar semilla
 
+set.seed(1030)
 
 
 
