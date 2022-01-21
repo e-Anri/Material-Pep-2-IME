@@ -63,14 +63,15 @@ capitan <- datosFlame %>% select(eval_capitan)
 comandante <- datosFlame %>% select(eval_comandante)
 general <- datosFlame %>% select(eval_general)
 
-#instructor <- as.integer(instructor$eval_instructor)
+instructor <- as.integer(instructor$eval_instructor)
 #capitan <- as.integer(capitan$eval_capitan)
 #comandante <- as.integer(comandante$eval_comandante)
 #general <- as.integer(general$eval_general)
 
-datos2 <- data.frame(instructor, capitan, comandante, general)
+datos2 <- c(instructor, capitan, comandante, general)
 
 class(datos2$eval_instructor)
+
 
 # DATOS EN FORMATO LARGO
 dl <- gather(
