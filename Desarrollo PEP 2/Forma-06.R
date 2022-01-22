@@ -1,5 +1,5 @@
 # PEP 2 IME
-# Estefanía Alvarez (20.371.287-1)
+# Estefanï¿½a Alvarez (20.371.287-1)
 # Stephan Silva (20.298.778-8)
 
 
@@ -146,9 +146,25 @@ x.test <- shapiro.test(as.numeric(dl$Resultado))
 # cuales serÃ¡n empleados para ajustar el modelo y el 20% restante, para 
 # evaluarlo.
 
+
+# Realizando llamado al archivo.csv
+datos <- read.csv(file.choose(), encoding = "UTF-8")
+
+
 # Considerar semilla
 
 set.seed(1030)
+datos <- sample_n(datos, 400)
+
+
+# Con respecto a las clases de soldados, interpretamos que se refiere a si los soldados
+# son clones o no (variable categï¿½rica)
+
+
+
+clones <- datos %>% filter(datos[["es_clon"]] == 1)
+no_clones <- datos %>% filter(datos[["es_clon"]] == 0)
+
 
 
 
