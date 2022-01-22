@@ -1,5 +1,5 @@
 # PEP 2 IME
-# EstefanÃ­a Alvarez (20.371.287-1)
+# Estefanía Alvarez (20.371.287-1)
 # Stephan Silva (20.298.778-8)
 
 
