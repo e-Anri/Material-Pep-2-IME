@@ -7,10 +7,10 @@
 # Pregunta 1
 
 # (23 puntos) Lord Vader desea saber si los niveles de exigencia con que los
-# distintos oficiales evaluadores (instructor, capitán, comandante y general) 
+# distintos oficiales evaluadores (instructor, capit�n, comandante y general) 
 # califican a los flametroopers son similares, por lo que le ha solicitado 
 # estudiar si existen diferencias significativas en el promedio de la 
-# evaluación realizada por cada uno de los oficiales. El Lord Sith ha sido muy 
+# evaluaci�n realizada por cada uno de los oficiales. El Lord Sith ha sido muy 
 # claro al solicitar un reporte de aquellos oficiales cuyas evaluaciones
 # presenten diferencias.
 
@@ -55,6 +55,7 @@ alpha <- 0.01
 # Se comienza por definir un nuevo data.frame con los datos acomodados 
 
 datosFlame <- datos %>% filter(datos[["division"]] == "Flametrooper")
+
 
 # names(datosFlame)<- c("division", "eval_instructor", "eval_capitan", "eval_comandante", "eval_general")
 
@@ -102,8 +103,8 @@ dl$instancia <- factor(1:nrow(dl))
 
 
 
-# Comprobación de normalidad a través de un gráfico QQ
-# Por alguna razón desconocida, el gráfico sale de una forma no adecuada :(
+# Comprobación de normalidad a trav�s de un gr�fico QQ
+# Por alguna raz�n desconocida, el gr�fico sale de una forma no adecuada :(
 g1 <- ggqqplot(dl,
                x = "Resultado",
                y = "Evaluador",
@@ -115,7 +116,7 @@ g1 <- g1 + rremove("y.ticks") + rremove("y.text")
 g1 <- g1 + rremove("axis.title")
 print(g1)
 
-# Es por esto que decidimos utilizar la prueba de 
+# Es por esto que decidimos utilizar la prueba de Shapiro Wilk
 
 class(dl$Resultado)
 
@@ -124,6 +125,16 @@ x.test <- shapiro.test(as.numeric(dl$Resultado))
 # Por efectos del ejercicio, el método a elegir para esta pregunta es el de 
 # ANOVA con muestras correlacionadas, si se hubiera podido transformar los 
 # caracteres a entero, no hubiera habido problema para seguir avanzando :(
+# Condiciones
+# Es por esto que se verificar�n si se cumplen las condiciones para realizar este tipo de prueba:
+# 1.- La variable dependiente presenta intervalos iguales para cada muestra 
+# 2.- Se puede decir que las muestras son independientes por el enunciado
+# 3.- No se pudo realizar el gr�fico QQ
+# 4.- Esta ser� comprobada mediante la prueba ezANOVA(), quedando en espera de comprobarse mientras tanto
+
+
+
+
 
 # Pregunta 2
 
@@ -134,18 +145,18 @@ x.test <- shapiro.test(as.numeric(dl$Resultado))
 # contemple entre 2 y 5 variables predictoras. Considere que, para ser 
 # aceptable, el modelo:
 
-# • Debe lograr una exactitud (accuracy) de al menos 0,8 en datos de prueba
-# • No puede considerar casos con demasiada influencia (considerando la 
+#  Debe lograr una exactitud (accuracy) de al menos 0,8 en datos de prueba
+# No puede considerar casos con demasiada influencia (considerando la 
 #   distancia de Cook)
 
-# • No debe presentar autocorrelación (usando la prueba de Durbin-Watson para
-#   un retardo y un nivel de significación α = .01)
+# No debe presentar autocorrelaci�n (usando la prueba de Durbin-Watson para
+#   un retardo y un nivel de significaci�n alfa = .01)
 
-# • No debe presentar multicolinealidad severa (considerando el factor de 
-#   inflación de la varianza, con un VIF promedio inferior a 1,03).
+# No debe presentar multicolinealidad severa (considerando el factor de 
+#   inflaci�n de la varianza, con un VIF promedio inferior a 1,03).
 
 # Considere la semilla 1030 para obtener una muestra de 400 datos, 80% de los
-# cuales serán empleados para ajustar el modelo y el 20% restante, para 
+# cuales ser�n empleados para ajustar el modelo y el 20% restante, para 
 # evaluarlo.
 
 
@@ -160,13 +171,26 @@ datos <- sample_n(datos, 400)
 
 
 # Con respecto a las clases de soldados, interpretamos que se refiere a si los soldados
-# son clones o no (variable categ�rica)
+# son clones o reclutas (variable categ�rica)
 
 
 
 clones <- datos %>% filter(datos[["es_clon"]] == 1)
-no_clones <- datos %>% filter(datos[["es_clon"]] == 0)
+reclutas <- datos %>% filter(datos[["es_clon"]] == 0)
 
+# Para este tipo de ejercicio se requiere hacer un modelo de regresi�n lineal
+
+
+# donde las 8 variables seleccionadas al azar son:
+
+# eficiencia
+# precision
+# armadura
+# imc
+# peso
+# fuerza
+# velocidad
+# agilidad
 
 
 
@@ -176,11 +200,12 @@ no_clones <- datos %>% filter(datos[["es_clon"]] == 0)
 # aparezca en las lecturas dadas) en donde un estudio o experimento, 
 # relacionado con el sentir de los santiaguinos ante el aumento de la 
 # violencia de la delincuencia, necesite utilizar una prueba de suma de 
-# rangos de Wilcoxon (también llamada prueba de Mann–Whitney–Wilcoxon o 
+# rangos de Wilcoxon (tambi�n llamada prueba de Mann-Whitney-Wilcoxon o 
 # prueba U de Mann-Whitney) debido a problemas con la escala de la variable 
-# dependiente en estudio. Indique cuáles serían las variables involucradas 
-# en su ejemplo (con sus respectivos niveles) y las hipótesis nula y 
+# dependiente en estudio. Indique cuales ser�n las variables involucradas 
+# en su ejemplo (con sus respectivos niveles) y las hip�tesis nula y 
 # alternativa a contrastar.
+
 
 # Respuesta:
 
@@ -189,22 +214,22 @@ no_clones <- datos %>% filter(datos[["es_clon"]] == 0)
 # para decidir cual será implementado en las distintas comunas.
 # Con este fin, el ministerio ha seleccionado al azar a 27 voluntarias y 
 # voluntarios, quienes son asignados de manera aleatoria a dos grupos, cada uno
-# de los cuales debe leer el plan de acción (n_A = 15, n_B = 14). Cada
+# de los cuales debe leer el plan de acci�n (n_A = 15, n_B = 14). Cada
 # participante debe evaluar 7 aspectos de efectividad del plan, cada 
 # uno de los cuales se mide con una escala Likert de 7 puntos, donde 1 significa 
-# “muy malo” y 7, “muy bueno”. La valoración que cada participante 
+# "muy malo" y 7, "muy bueno". La valoraci�n que cada participante 
 # da al plan evaluado corresponde al promedio simple de las puntuaciones 
 # de los 7 aspectos evaluados.
 
 # Las variables son:
 
-# Plan A, Plan B y la Valoración  de efectividad (con niveles desde "muy malo" a "muy bueno")
+# Plan A, Plan B y la Valoraci�n  de efectividad (con niveles desde "muy malo" a "muy bueno")
 
-# Hipótesis a contrastar:
+# Hip�tesis a contrastar:
 
 # H0: No hay diferencia en la efectividad de ambos planes (se distribuyen de igual forma).
 
-# HA: Sí hay diferencia en la efectividad de ambos planes (distribuciones distintas).
+# HA: S� hay diferencia en la efectividad de ambos planes (distribuciones distintas).
 
 
 
