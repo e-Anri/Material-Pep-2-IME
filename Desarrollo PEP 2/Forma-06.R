@@ -38,7 +38,7 @@ library(dplyr)
 
 
 # Realizando llamado al archivo.csv
-datos <- read.csv(file.choose(), encoding = "UTF-8", sep = ";", stringsAsFactors = FALSE)
+datos <- read.csv(file.choose(), encoding = "UTF-8",)
 
 # Nivel de significación:
 
@@ -63,9 +63,30 @@ capitan <- datosFlame %>% select(eval_capitan)
 comandante <- datosFlame %>% select(eval_comandante)
 general <- datosFlame %>% select(eval_general)
 
+#instructor <- as.integer(instructor$eval_instructor)
+#capitan <- as.integer(capitan$eval_capitan)
+#comandante <- as.integer(comandante$eval_comandante)
+#general <- as.integer(general$eval_general)
+
 datos2 <- data.frame(instructor, capitan, comandante, general)
 
 class(datos2$eval_instructor)
+
+
+
+# Se intenta cambiar el tipo de dato que proviene desde el archivo,
+# pues los datos son de tipo character, pero para operar con ellos se
+# necesita que sean de tipo numerico o entero
+
+# Cuando tratamos de convertir los valores a entero
+# nos tira error:
+# Warning message:
+# NAs introduced by coercion 
+
+
+# es por esto que no logramos avanzar m?s all? en este ejercicio
+
+
 
 # DATOS EN FORMATO LARGO
 dl <- gather(
@@ -139,9 +160,36 @@ set.seed(1030)
 # violencia de la delincuencia, necesite utilizar una prueba de suma de 
 # rangos de Wilcoxon (también llamada prueba de Mann–Whitney–Wilcoxon o 
 # prueba U de Mann-Whitney) debido a problemas con la escala de la variable 
-# dependiente en estudio. Indiqué cuáles serían las variables involucradas 
+# dependiente en estudio. Indique cuáles serían las variables involucradas 
 # en su ejemplo (con sus respectivos niveles) y las hipótesis nula y 
 # alternativa a contrastar.
+
+# Respuesta:
+
+# El ministerio de seguridad desea evaluar la efectividad de dos 
+# planes alternativos para combatir la delincuencia desatada en Santiago, A y B,
+# para decidir cual será implementado en las distintas comunas.
+# Con este fin, el ministerio ha seleccionado al azar a 27 voluntarias y 
+# voluntarios, quienes son asignados de manera aleatoria a dos grupos, cada uno
+# de los cuales debe leer el plan de acción (n_A = 15, n_B = 14). Cada
+# participante debe evaluar 7 aspectos de efectividad del plan, cada 
+# uno de los cuales se mide con una escala Likert de 7 puntos, donde 1 significa 
+# “muy malo” y 7, “muy bueno”. La valoración que cada participante 
+# da al plan evaluado corresponde al promedio simple de las puntuaciones 
+# de los 7 aspectos evaluados.
+
+# Las variables son:
+
+# Plan A, Plan B y la Valoración  de efectividad (con niveles desde "muy malo" a "muy bueno")
+
+# Hipótesis a contrastar:
+
+# H0: No hay diferencia en la efectividad de ambos planes (se distribuyen de igual forma).
+
+# HA: Sí hay diferencia en la efectividad de ambos planes (distribuciones distintas).
+
+
+
 
 
 
