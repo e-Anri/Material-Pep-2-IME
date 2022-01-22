@@ -1,5 +1,5 @@
 # PEP 2 IME
-# Estefanía Alvarez (20.371.287-1)
+# Estefanï¿½a Alvarez (20.371.287-1)
 # Stephan Silva (20.298.778-8)
 
 
@@ -38,7 +38,7 @@ library(dplyr)
 
 
 # Realizando llamado al archivo.csv
-datos <- read.csv(file.choose(), encoding = "UTF-8", sep = ";", stringsAsFactors = FALSE)
+datos <- read.csv(file.choose(), encoding = "UTF-8")
 
 # Nivel de significaciÃ³n:
 
@@ -71,6 +71,22 @@ general <- datosFlame %>% select(eval_general)
 datos2 <- data.frame(instructor, capitan, comandante, general)
 
 class(datos2$eval_instructor)
+
+
+
+# Se intenta cambiar el tipo de dato que proviene desde el archivo,
+# pues los datos son de tipo character, pero para operar con ellos se
+# necesita que sean de tipo numerico o entero
+
+# Cuando tratamos de convertir los valores a entero
+# nos tira error:
+# Warning message:
+# NAs introduced by coercion 
+
+
+# es por esto que no logramos avanzar más allá en este ejercicio
+
+
 
 # DATOS EN FORMATO LARGO
 dl <- gather(
@@ -130,9 +146,25 @@ x.test <- shapiro.test(as.numeric(dl$Resultado))
 # cuales serÃ¡n empleados para ajustar el modelo y el 20% restante, para 
 # evaluarlo.
 
+
+# Realizando llamado al archivo.csv
+datos <- read.csv(file.choose(), encoding = "UTF-8")
+
+
 # Considerar semilla
 
 set.seed(1030)
+datos <- sample_n(datos, 400)
+
+
+# Con respecto a las clases de soldados, interpretamos que se refiere a si los soldados
+# son clones o no (variable categórica)
+
+
+
+clones <- datos %>% filter(datos[["es_clon"]] == 1)
+no_clones <- datos %>% filter(datos[["es_clon"]] == 0)
+
 
 
 
