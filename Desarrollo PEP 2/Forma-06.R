@@ -84,7 +84,7 @@ class(datos2$eval_instructor)
 # NAs introduced by coercion 
 
 
-# es por esto que no logramos avanzar m?s all? en este ejercicio
+# es por esto que no logramos avanzar más allá en este ejercicio
 
 
 
@@ -121,7 +121,9 @@ class(dl$Resultado)
 
 x.test <- shapiro.test(as.numeric(dl$Resultado))
 
-# 
+# Por efectos del ejercicio, el método a elegir para esta pregunta es el de 
+# ANOVA con muestras correlacionadas, si se hubiera podido transformar los 
+# caracteres a entero, no hubiera habido problema para seguir avanzando :(
 
 # Pregunta 2
 
